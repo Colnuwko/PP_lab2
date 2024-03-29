@@ -108,7 +108,7 @@ int main() {
        
        ofstream file;
         file.open("stats.csv", ios_base::app);
-        for (int size_matrix =2000; size_matrix <= 2500; size_matrix += 100)
+        for (int size_matrix = 100; size_matrix <= 2000; size_matrix += 100)
         {
             string file_name_first_matrix{ to_string(size_matrix) + ".txt" };
             string file_name_second_matrix{ to_string(size_matrix) + "_2" + ".txt"};
