@@ -110,38 +110,40 @@ int main() {
         file.open("stats.csv", ios_base::app);
         for (int size_matrix = 100; size_matrix <= 2000; size_matrix += 100)
         {
-            string file_name_first_matrix{ to_string(size_matrix) + ".txt" };
-            string file_name_second_matrix{ to_string(size_matrix) + "_2" + ".txt"};
-            string file_name_result{ "result_" + to_string(size_matrix) + ".txt"};
-            write_data(size_matrix, file_name_first_matrix);
-            write_data(size_matrix, file_name_second_matrix);
-            int** matrix_first = new int* [size_matrix];
-            for (int i = 0; i < size_matrix; i++)
-            {
-                matrix_first[i] = new int[size_matrix];
-            }
-            int** matrix_second = new int* [size_matrix];
-            for (int i = 0; i < size_matrix; i++)
-            {
-                matrix_second[i] = new int[size_matrix];
-            }
-            int** result = new int* [size_matrix];
-            for (int i = 0; i < size_matrix; i++)
-            {
-                result[i] = new int[size_matrix];
-            }
+            for (int k = 0; k < 10; k++) {
+                string file_name_first_matrix{ to_string(size_matrix) + ".txt" };
+                string file_name_second_matrix{ to_string(size_matrix) + "_2" + ".txt" };
+                string file_name_result{ "result_" + to_string(size_matrix) + ".txt" };
+                write_data(size_matrix, file_name_first_matrix);
+                write_data(size_matrix, file_name_second_matrix);
+                int** matrix_first = new int* [size_matrix];
+                for (int i = 0; i < size_matrix; i++)
+                {
+                    matrix_first[i] = new int[size_matrix];
+                }
+                int** matrix_second = new int* [size_matrix];
+                for (int i = 0; i < size_matrix; i++)
+                {
+                    matrix_second[i] = new int[size_matrix];
+                }
+                int** result = new int* [size_matrix];
+                for (int i = 0; i < size_matrix; i++)
+                {
+                    result[i] = new int[size_matrix];
+                }
 
-            read_data(matrix_first, size_matrix, file_name_first_matrix);
-            read_data(matrix_second, size_matrix, file_name_second_matrix);
+                read_data(matrix_first, size_matrix, file_name_first_matrix);
+                read_data(matrix_second, size_matrix, file_name_second_matrix);
 
-            auto time = matrix_multiplication(matrix_first, matrix_second, size_matrix, result, threads);
-            write_result(result, file_name_result, size_matrix);
-            file << size_matrix <<"\t" << time << endl;
-            if (size_matrix % 500 != 0)
-            {
-                remove(file_name_first_matrix.c_str());
-                remove(file_name_second_matrix.c_str());
-                remove(file_name_result.c_str());
+                auto time = matrix_multiplication(matrix_first, matrix_second, size_matrix, result, threads);
+                write_result(result, file_name_result, size_matrix);
+                file << threads << size_matrix << "\t" << time << endl;
+                if (size_matrix % 500 != 0)
+                {
+                    remove(file_name_first_matrix.c_str());
+                    remove(file_name_second_matrix.c_str());
+                    remove(file_name_result.c_str());
+                }
             }
 
         }
